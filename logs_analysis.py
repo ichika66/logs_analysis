@@ -17,7 +17,11 @@ def PopularArticle():
 	cursor.execute("SELECT path, COUNT(id) AS view FROM log GROUP BY path ORDER BY view DESC LIMIT 10;")
 	rows = cursor.fetchall()
 	db.close();
+	row = []
+	for r in rows:
+		if r == '*article*':
+			row.append(r)
 	return rows
 
 	# select path, count(id) as view from log group by path order by view desc limit 10;
-PopularArticle()
+print PopularArticle()
