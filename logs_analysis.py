@@ -14,7 +14,7 @@ def connect(database_name="news"):
 def PopularArticle():
 	""" Print out the most popular article of all times. """
 	db, cursor = connect()
-	cursor.execute("SELECT path, COUNT(id) AS view FROM log GROUP BY path ORDER BY view DESC LIMIT 10;")
+	cursor.execute("SELECT path, count(id) AS view FROM log WHERE path LIKE '/article/%' GROUP BY path ORDER BY view DESC LIMIT 3;")
 	rows = cursor.fetchall()
 	db.close();
 	row = []
