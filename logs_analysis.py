@@ -1,6 +1,6 @@
 # logs_analysis.py
 #
-
+import re
 import psycopg2
 """ Connect to the PostgreSQL database. Returns a database connection. """
 def connect(database_name="news"):
@@ -18,10 +18,13 @@ def PopularArticle():
 	rows = cursor.fetchall()
 	db.close();
 	row = []
+	string = ''
 	for r in rows:
-		if r == '*article*':
-			row.append(r)
-	return rows
+		string = str(r)
+		string = re.sub('/article/', '', string)
+		row.append(string)
+	#		row.append(r)
+	return row
 
 	# select path, count(id) as view from log group by path order by view desc limit 10;
 print PopularArticle()
