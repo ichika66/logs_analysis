@@ -18,13 +18,29 @@ def PopularArticle():
 	rows = cursor.fetchall()
 	db.close();
 	row = []
-	string = ''
+	ls = []
 	for r in rows:
-		string = str(r)
-		string = re.sub('/article/', '', string)
-		row.append(string)
-	#		row.append(r)
-	return row
+		ls = r[0]  # get one element from tuple
+		ls = re.sub('/article/', '', ls)  # delete article from path
+		row.append(ls)  # append the row list
+	#return row
+	#GetTitle(row)
 
-	# select path, count(id) as view from log group by path order by view desc limit 10;
+def GetTitle():
+	""" get title from articles table which path is same as slug """
+	title = []
+	t = []
+	db, cursor = connect()
+	#for r in row:
+	#query = "SELECT title FROM articles WHERE slug = %s;" % row[0]
+	#query = "SELECT title FROM articles WHERE slug = 'candidate-is-jerk';"
+	cursor.execute("SELECT title FROM articles WHERE slug = 'candidate-is-jerk';")
+	title = cursor.fetchall()
+	db.close();
+	#title.append(t)
+
+	return title
+
 print PopularArticle()
+print GetTitle()
+
