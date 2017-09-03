@@ -24,23 +24,25 @@ def PopularArticle():
 		ls = re.sub('/article/', '', ls)  # delete article from path
 		row.append(ls)  # append the row list
 	#return row
-	#GetTitle(row)
+	return GetTitle(row)
 
-def GetTitle():
+def GetTitle(row):
 	""" get title from articles table which path is same as slug """
 	title = []
 	t = []
 	db, cursor = connect()
-	#for r in row:
-	#query = "SELECT title FROM articles WHERE slug = %s;" % row[0]
-	#query = "SELECT title FROM articles WHERE slug = 'candidate-is-jerk';"
-	cursor.execute("SELECT title FROM articles WHERE slug = 'candidate-is-jerk';")
+	cursor.execute("SELECT slug, title FROM articles;")
 	title = cursor.fetchall()
 	db.close();
-	#title.append(t)
 
-	return title
+	title = dict(title)
+	ti = []
+	for r in row:
+		if title[r]:
+			ti.append(title[r])
+
+	return ti
 
 print PopularArticle()
-print GetTitle()
+#print GetTitle()
 
