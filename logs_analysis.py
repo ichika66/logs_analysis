@@ -23,26 +23,23 @@ def PopularArticle():
 		ls = r[0]  # get one element from tuple
 		ls = re.sub('/article/', '', ls)  # delete article from path
 		row.append(ls)  # append the row list
-	#return row
 	return GetTitle(row)
 
 def GetTitle(row):
 	""" get title from articles table which path is same as slug """
-	title = []
-	t = []
+	title = []  # list to store titles
 	db, cursor = connect()
 	cursor.execute("SELECT slug, title FROM articles;")
 	title = cursor.fetchall()
 	db.close();
 
-	title = dict(title)
-	ti = []
+	dictionary = dict(title)  # change tuple to dictionary
+	top3 = []  # list of top three titles
 	for r in row:
-		if title[r]:
-			ti.append(title[r])
+		if dictionary[r]:
+			top3.append(dictionary[r])
 
-	return ti
+	return top3
 
 print PopularArticle()
-#print GetTitle()
 
