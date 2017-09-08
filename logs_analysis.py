@@ -11,7 +11,7 @@ def connect(database_name="news"):
 	except:
 		print("Error establishing a database connection")
 
-def PopularArticle():
+def Popular3Article():
 	""" Print out the most popular article of all times. """
 	db, cursor = connect()
 	cursor.execute("SELECT path, count(id) AS view FROM log WHERE path LIKE '/article/%' GROUP BY path ORDER BY view DESC LIMIT 3;")
@@ -32,5 +32,5 @@ def PopularArticle():
 	db.close();
 	return row
 
-print PopularArticle()
+print Popular3Article()
 
