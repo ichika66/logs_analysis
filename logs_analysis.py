@@ -36,7 +36,7 @@ def Popular3Article():
 
 
 def PopularAuthor():
-	db.cursor = connect()
+	db, cursor = connect()
 	query = ("select articles.title, authors.name from articles, authors where articles.author = authors.id")
 	cursor.execute(query)
 	author = cursor.fetchall()
