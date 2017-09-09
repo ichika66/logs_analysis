@@ -31,10 +31,17 @@ def Popular3Article():
 	# 	row.append(ls)
 	# cursor.execute("SELECT articles.title, count(log.path) AS view FROM articles, log WHERE articles.slug = " + str(row[0]) + "OR articles.slug = " + str(row[1]) + "OR articles.slug = " + str(row[2]) + "GROUP BY articles.title ORDER BY view desc")
 	# top3 = cursor.fetchall()
-
 	db.close();
 	return row
 
+
+def PoplarAuthor():
+	db.cursor = connect()
+	query = ("select articles.title, authors.name from articles, authors where articles.author = authors.id")
+	cursor.execute(query)
+	author = cursor.fetchall()
+	db.close()
+	return author
 
 print Popular3Article()
 
