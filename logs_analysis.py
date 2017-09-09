@@ -35,7 +35,7 @@ def Popular3Article():
 	return row
 
 
-def PoplarAuthor():
+def PopularAuthor():
 	db.cursor = connect()
 	query = ("select articles.title, authors.name from articles, authors where articles.author = authors.id")
 	cursor.execute(query)
@@ -44,4 +44,4 @@ def PoplarAuthor():
 	return author
 
 print Popular3Article()
-
+print PopularAuthor()
