@@ -24,7 +24,7 @@ def GetResult(query):
 	"""Get the query result from the DB"""
 	db, cursor = connect()
 	cursor.execute(query)
-	titles = cursor.fetchall
+	titles = cursor.fetchall()
 	db.close
 	return titles
 
