@@ -9,7 +9,7 @@ query1 = (
 	"from articles inner join log on log.path "
 	"like concat ('%', articles.slug, '%') "
 	"group by articles.title, log.path "
-	"order by views desc limit 3;"
+	"order by view desc limit 3;"
 	)
 
 def connect(database_name="news"):
