@@ -37,17 +37,23 @@ Second, initialize the tournament database.
 ```
 
 ### Create views
-Copy and paste the following commands.
-
+First, connect to the news database.
 ```
 psql news
+```
+Second, copy and paste the following three commands to create views.
+
+```
 create view error_count as select cast(time as date), count(*) as error from log where status not like '%200%' group by cast(time as date) order by cast (time as date) desc;
- 
+
 create view log_status as select cast(time as date), count(*) as error from log group by cast(time as date) order by cast(time as date) desc;
 
 create view load_error as select log_status.time, round(((error_count.error * 100.) / log_status.error), 1) as error from log_status, error_count where log_status.time = error_count.time order by log_status.time asc;
 ```
-
+Third, close database.
+```
+\q
+```
 
 ### Run the logs_analysis.py
 Run tournament_test.py file to see the results.
