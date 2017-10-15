@@ -57,7 +57,7 @@ def PrintViews(title, result):
     result = list(result)
     print title
     for r in result:
-        print(str(r[0]) + ' - ' + str(r[1]) + ' views')
+        print('  ' + str(r[0]) + ' - ' + str(r[1]) + ' views')
 
 
 def PrintErrors(title, result):
@@ -65,7 +65,7 @@ def PrintErrors(title, result):
     result = list(result)
     print title
     for r in result:
-        print(str(r[0]) + ' - ' + str(r[1]) + '% errors')
+        print('  ' + str(r[0]) + ' - ' + str(r[1]) + '% errors')
 
 
 # Define result of each queries
