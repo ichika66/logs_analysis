@@ -8,60 +8,63 @@ title3 = "3. On which days did more than 1% of requests lead to errors?"
 
 # Most poular three articles
 query1 = (
-	"select articles.title, count(*) as view "
-	"from articles inner join log on log.path "
-	"like concat ('%', articles.slug, '%') "
-	"group by articles.title, log.path "
-	"order by view desc limit 3;"
-	)
+    "select articles.title, count(*) as view "
+    "from articles inner join log on log.path "
+    "like concat ('%', articles.slug, '%') "
+    "group by articles.title, log.path "
+    "order by view desc limit 3;"
+    )
 
 # most popular authors
 query2 = (
-	"select authors.name, count(*) as view "
-	"from authors inner join articles "
-	"on articles.author = authors.id "
-	"inner join log on log.path "
-	"like concat ('%', articles.slug, '%') "
-	"group by authors.name "
-	"order by view desc; "
-	)
+    "select authors.name, count(*) as view "
+    "from authors inner join articles "
+    "on articles.author = authors.id "
+    "inner join log on log.path "
+    "like concat ('%', articles.slug, '%') "
+    "group by authors.name "
+    "order by view desc; "
+    )
 
 # error logs more than 1% per day
 query3 = (
-	"select * from load_error where error >= 1;"
-	)
+    "select * from load_error where error >= 1;"
+    )
 
-""" Connect to the PostgreSQL database. Returns a database connection. """
+
 def connect(database_name="news"):
-	try:
-		db = psycopg2.connect("dbname={}".format(database_name))
-		cursor = db.cursor()
-		return db, cursor
-	except:
-		print("Error establishing a database connection")
+    """ Connect to the PostgreSQL database. Returns a database connection. """
+    try:
+        db = psycopg2.connect("dbname={}".format(database_name))
+        cursor = db.cursor()
+        return db, cursor
+    except:
+        print("Error establishing a database connection")
 
-""" Take query for a parameter to get result from database """
+
 def GetResult(query):
-	"""Get the query result from the DB"""
-	db, cursor = connect()
-	cursor.execute(query)
-	result = cursor.fetchall()
-	db.close
-	return result
+    """ Get the query result from the DB """
+    db, cursor = connect()
+    cursor.execute(query)
+    result = cursor.fetchall()
+    db.close
+    return result
 
-""" Print the title and result of the query1 & 2 """
+
 def PrintViews(title, result):
-	result = list(result)
-	print title
-	for r in result:
-		print (str(r[0]) + ' - ' + str(r[1]) + ' views')
+    """ Print the title and result of the query1 & 2 """
+    result = list(result)
+    print title
+    for r in result:
+        print (str(r[0]) + ' - ' + str(r[1]) + ' views')
 
-""" Print the title and result of the query3 """
+
 def PrintErrors(title, result):
-	result = list(result)
-	print title
-	for r in result:
-		print (str(r[0]) + ' - ' + str(r[1]) + '% errors')
+    """ Print the title and result of the query3 """
+    result = list(result)
+    print title
+    for r in result:
+        print (str(r[0]) + ' - ' + str(r[1]) + '% errors')
 
 # Define result of each queries
 Report1 = GetResult(query1)
