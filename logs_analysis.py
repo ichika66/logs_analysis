@@ -38,7 +38,7 @@ def connect(database_name="news"):
         db = psycopg2.connect("dbname={}".format(database_name))
         cursor = db.cursor()
         return db, cursor
-    except:
+    except Exception:
         print("Error establishing a database connection")
 
 
@@ -56,7 +56,7 @@ def PrintViews(title, result):
     result = list(result)
     print title
     for r in result:
-        print (str(r[0]) + ' - ' + str(r[1]) + ' views')
+        print(str(r[0]) + ' - ' + str(r[1]) + ' views')
 
 
 def PrintErrors(title, result):
@@ -64,7 +64,8 @@ def PrintErrors(title, result):
     result = list(result)
     print title
     for r in result:
-        print (str(r[0]) + ' - ' + str(r[1]) + '% errors')
+        print(str(r[0]) + ' - ' + str(r[1]) + '% errors')
+
 
 # Define result of each queries
 Report1 = GetResult(query1)
