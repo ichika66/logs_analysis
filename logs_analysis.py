@@ -22,6 +22,23 @@ query2 = (
 	"order by view desc; "
 	)
 
+query3 = (
+	"select * from load_error where error >= 1;"
+	)
+
+"""
+create view error_count as select cast(time as date), count(*) as error from log where status not like '%200%' group by cast(time as date) order by cast (time as date) desc;
+"""
+"""
+create view log_status as select cast(time as date), count(*) as error from log group by cast(time as date) order by cast(time as date) desc;
+"""
+#select log_status.time, round(((error_count.error * 100.) / log_status.error), 1) as error from log_status, error_count where log_status.time = error_count.time order by log_status.time asc;
+
+"""
+create view load_error as select log_status.time, round(((error_count.error * 100.) / log_status.error), 1) as error from log_status, error_count where log_status.time = error_count.time order by log_status.time asc;
+"""
+
+
 def connect(database_name="news"):
 	try:
 		db = psycopg2.connect("dbname={}".format(database_name))
@@ -40,3 +57,4 @@ def GetResult(query):
 
 print GetResult(query1)
 print GetResult(query2)
+print GetResult(query3)
