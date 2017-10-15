@@ -55,6 +55,12 @@ def GetResult(query):
 	db.close
 	return titles
 
-print GetResult(query1)
-print GetResult(query2)
-print GetResult(query3)
+def PrintViews(result):
+	for r in result:
+		print r
+
+#print GetResult(query1)
+#print GetResult(query2)
+#print GetResult(query3)
+PopArt3 = GetResult(query1)
+PrintViews(PopArt3)
