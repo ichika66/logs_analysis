@@ -3,9 +3,9 @@
 import psycopg2
 
 # title strings
-title1 = "1. What are the most popular three articles of all time?"
-title2 = "2. Who are the most popular article authors of all time? "
-title3 = "3. On which days did more than 1% of requests lead to errors?"
+title1 = "\n1. What are the most popular three articles of all time?\n"
+title2 = "\n2. Who are the most popular article authors of all time?\n "
+title3 = "\n3. On which days did more than 1% of requests lead to errors?\n"
 
 # Most poular three articles
 query1 = (
