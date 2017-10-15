@@ -16,6 +16,12 @@ Fork the repository below to your GitHub then clone it to your local computer.
 
 https://github.com/udacity/fullstack-nanodegree-vm
 
+### Download newsdata.sql file
+First, Download the file from the link below.
+https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip
+
+Second, unzip the file and save 'newsdata.sql' file to FSND-Virtual-Machine/vagrant/
+
 ### Save python file
 Save the "logs_analysis.py" to FSND-Virtual-Machine/vagrant/
 
