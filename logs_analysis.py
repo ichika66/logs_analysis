@@ -4,6 +4,10 @@ import re
 import psycopg2
 """ Connect to the PostgreSQL database. Returns a database connection. """
 
+title1 = "1. What are the most popular three articles of all time?"
+title2 = "2. Who are the most popular article authors of all time? "
+title3 = "3. On which days did more than 1% of requests lead to errors?"
+
 query1 = (
 	"select articles.title, count(*) as view "
 	"from articles inner join log on log.path "
@@ -55,12 +59,17 @@ def GetResult(query):
 	db.close
 	return titles
 
-def PrintViews(result):
+def PrintViews(title, result):
+	result = list(result)
+	print title
 	for r in result:
-		print r
+		print (str(r[0]) + ' - ' + str(r[1]) + ' views')
 
 #print GetResult(query1)
 #print GetResult(query2)
 #print GetResult(query3)
 PopArt3 = GetResult(query1)
-PrintViews(PopArt3)
+PopAut = GetResult(query2)
+
+PrintViews(title1, PopArt3)
+PrintViews(title2, PopAut)
