@@ -11,7 +11,7 @@ title3 = "\n3. On which days did more than 1% of requests lead to errors?\n"
 query1 = (
     "select articles.title, count(*) as view "
     "from articles inner join log on log.path "
-    "like concat ('%', articles.slug, '%') "
+    "= concat('/article/', articles.slug) "
     "group by articles.title, log.path "
     "order by view desc limit 3;"
     )
@@ -22,7 +22,7 @@ query2 = (
     "from authors inner join articles "
     "on articles.author = authors.id "
     "inner join log on log.path "
-    "like concat ('%', articles.slug, '%') "
+    "= concat('/article/', articles.slug) "
     "group by authors.name "
     "order by view desc; "
     )
