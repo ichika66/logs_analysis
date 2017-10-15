@@ -1,11 +1,12 @@
 # logs_analysis.py
 import psycopg2
-""" Connect to the PostgreSQL database. Returns a database connection. """
 
+# title strings
 title1 = "1. What are the most popular three articles of all time?"
 title2 = "2. Who are the most popular article authors of all time? "
 title3 = "3. On which days did more than 1% of requests lead to errors?"
 
+# Most poular three articles
 query1 = (
 	"select articles.title, count(*) as view "
 	"from articles inner join log on log.path "
@@ -14,6 +15,7 @@ query1 = (
 	"order by view desc limit 3;"
 	)
 
+# most popular authors
 query2 = (
 	"select authors.name, count(*) as view "
 	"from authors inner join articles "
@@ -24,10 +26,12 @@ query2 = (
 	"order by view desc; "
 	)
 
+# error logs more than 1% per day
 query3 = (
 	"select * from load_error where error >= 1;"
 	)
 
+""" Connect to the PostgreSQL database. Returns a database connection. """
 def connect(database_name="news"):
 	try:
 		db = psycopg2.connect("dbname={}".format(database_name))
@@ -36,30 +40,35 @@ def connect(database_name="news"):
 	except:
 		print("Error establishing a database connection")
 
+""" Take query for a parameter to get result from database """
 def GetResult(query):
 	"""Get the query result from the DB"""
 	db, cursor = connect()
 	cursor.execute(query)
-	titles = cursor.fetchall()
+	result = cursor.fetchall()
 	db.close
-	return titles
+	return result
 
+""" Print the title and result of the query1 & 2 """
 def PrintViews(title, result):
 	result = list(result)
 	print title
 	for r in result:
 		print (str(r[0]) + ' - ' + str(r[1]) + ' views')
 
+""" Print the title and result of the query3 """
 def PrintErrors(title, result):
 	result = list(result)
 	print title
 	for r in result:
 		print (str(r[0]) + ' - ' + str(r[1]) + '% errors')
 
-PopArt3 = GetResult(query1)
-PopAut = GetResult(query2)
-MoreError = GetResult(query3)
+# Define result of each queries
+Report1 = GetResult(query1)
+Report2 = GetResult(query2)
+Report3 = GetResult(query3)
 
-PrintViews(title1, PopArt3)
-PrintViews(title2, PopAut)
-PrintErrors(title3, MoreError)
+# Print all reports
+PrintViews(title1, Report1)
+PrintViews(title2, Report2)
+PrintErrors(title3, Report3)
